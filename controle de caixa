@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ketchully Karen Acessórios - Controle de Caixa</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 600px; margin: auto; padding: 20px; }
+        input, button, select { margin: 5px; padding: 10px; width: 100%; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 10px; }
+        .entrada { background-color: #d4edda; color: #155724; }
+        .saida { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ketchully Karen Acessórios - Controle de Caixa</h2>
+        <label>Valor:</label>
+        <input type="number" id="valor" placeholder="Digite o valor">
+        <label>Descrição:</label>
+        <input type="text" id="descricao" placeholder="Descreva a transação">
+        <label>Tipo:</label>
+        <select id="tipo">
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+        </select>
+        <button onclick="registrarTransacao()">Registrar</button>
+        
+        <h3>Registros</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Valor</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody id="registros"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function registrarTransacao() {
+            let valor = document.getElementById('valor').value;
+            let descricao = document.getElementById('descricao').value;
+            let tipo = document.getElementById('tipo').value;
+            let tabela = document.getElementById('registros');
+            
+            if (valor === "" || descricao === "") {
+                alert("Digite um valor e uma descrição!");
+                return;
+            }
+            
+            let linha = tabela.insertRow();
+            linha.className = tipo === "entrada" ? "entrada" : "saida";
+            linha.insertCell(0).innerText = `R$ ${parseFloat(valor).toFixed(2)}`;
+            linha.insertCell(1).innerText = descricao;
+            linha.insertCell(2).innerText = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+            linha.insertCell(3).innerText = new Date().toLocaleString();
+            
+            document.getElementById('valor').value = "";
+            document.getElementById('descricao').value = "";
+        }
+    </script>
+</body>
+</html>
